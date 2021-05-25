@@ -127,7 +127,7 @@ The `NotionClient` supports the following options on initialization. These optio
 
 This package supports the following minimum versions:
 
-- Runtime: `lucee >= 4.1 | acf >= 12`
+- Runtime: `lucee >= 4.5 | acf >= 11`
 
 Testing has been done on the [Lucee CFML engine](https://lucee.org).
 ## Getting help
