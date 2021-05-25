@@ -1,6 +1,7 @@
 component {
 
 	this.name="notion_sdk_cfml";
+	
 	this.clientmanagement="true";
 	this.sessionmanagement="true";
 	this.setclientcookies="true";
@@ -26,13 +27,28 @@ component {
 
 	function onApplicationStart()
 	{
-        Application.baseUrl = 'https://api.notion.com/v1';
+		// Default Notion settings
+		Application.notion = {
+			notionVersion: "2021-05-24",
+			baseUrl: "https://api.notion.com/v1"
+		}
+
 	}
 
 	function onRequestStart()
 	{
-	}
-
-	function getRequestSettings(){
+		// If settings.json file exists, read Notion settings from file.
+		try{
+			var settings = deserializeJson(fileRead('./settings.json'));
+			if (!isNull(settings)){
+				for (var key in settings){
+					Application.notion[key] = settings[key];
+				}	
+			}
+		}catch (any e){
+			if (!findnocase('does not exist', e.Message)){
+				writeOutput("<div style='background-color:red; color: white; width:90%; padding:10px; top:0px; left:0px;'>Settings.json file exists but contains errors. Default settings to be used. <BR/><BR/>#e.Message#<BR/></div>");
+			}
+		}
 	}
 }

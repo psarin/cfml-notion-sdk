@@ -1,0 +1,5 @@
+{
+    "auth": "secret_TOKEN",
+    "notionVersion": "2021-05-24",
+    "baseUrl": "https://api.notion.com/v1"
+}
