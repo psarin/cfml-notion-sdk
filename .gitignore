@@ -8,3 +8,4 @@ doc/api/
 .vscode/
 .DS_Store
 environment.var
+settings.json
