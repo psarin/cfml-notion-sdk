@@ -1,7 +1,5 @@
 component UserAPI {
 
-    this.baseUrl = Application.baseUrl;
-
     function init (required httpService){
         this.httpService = httpService;
 
@@ -12,7 +10,7 @@ component UserAPI {
         return this.httpService(argumentCollection = {
             message: 'getting the user',
             method: 'GET',
-            url: '#this.baseUrl#/users/#user_id#'
+            url: '/users/#user_id#'
         });
     }
 
@@ -20,7 +18,7 @@ component UserAPI {
         return this.httpService(argumentCollection = {
             message: 'listing the users',
             method: 'GET',
-            url: '#this.baseUrl#/users',
+            url: '/users',
         }); 
     }
 }

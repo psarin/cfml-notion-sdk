@@ -1,7 +1,5 @@
 component BlockAPI {
 
-    this.baseUrl = Application.baseUrl;
-
     function init (required httpService){
         this.httpService = httpService;
 
@@ -12,7 +10,7 @@ component BlockAPI {
         return this.httpService(argumentCollection = {
             message: 'getting the block',
             method: 'GET',
-            url: '#this.baseUrl#/blocks/#block_id#/children'
+            url: '/blocks/#block_id#/children'
         });
     }
 
@@ -23,7 +21,7 @@ component BlockAPI {
             body: {
                 'children': [child]
             },
-            url: '#this.baseUrl#/blocks/#block_id#/children'
+            url: '/blocks/#block_id#/children'
         });
     }
     
@@ -34,7 +32,7 @@ component BlockAPI {
             body: {
                 'children': children
             },
-            url: '#this.baseUrl#/blocks/#block_id#/children'
+            url: '/blocks/#block_id#/children'
         });
     }
 

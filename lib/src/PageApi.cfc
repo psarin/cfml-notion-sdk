@@ -1,7 +1,5 @@
 component PageAPI {
 
-    this.baseUrl = Application.baseUrl;
-
     function init (required httpService){
         this.httpService = httpService;
 
@@ -12,7 +10,7 @@ component PageAPI {
         return this.httpService(argumentCollection = {
             message: 'getting the page',
             method: 'GET',
-            url: '#this.baseUrl#/pages/#page_id#'
+            url: '/pages/#page_id#'
         });
     }
 
@@ -21,7 +19,7 @@ component PageAPI {
             return this.httpService(argumentCollection = {
                 message: 'creating the page',
                 method: 'POST',
-                url: '#this.baseUrl#/pages',
+                url: '/pages',
                 body: page
             });    
         }
@@ -33,7 +31,7 @@ component PageAPI {
             return this.httpService(argumentCollection = {
                 message: 'updating the page',
                 method: 'PATCH',
-                url: '#this.baseUrl#/pages/#page_id#',
+                url: '/pages/#page_id#',
                 body: properties
             });    
         }

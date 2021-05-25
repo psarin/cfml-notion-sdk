@@ -1,7 +1,5 @@
 component SearchAPI {
 
-    this.baseUrl = Application.baseUrl;
-
     function init (required httpService){
         this.httpService = httpService;
 
@@ -18,7 +16,7 @@ component SearchAPI {
         return this.httpService(argumentCollection = {
             message: 'performing search',
             method: 'POST',
-            url: '#this.baseUrl#/search',
+            url: '/search',
             body: arguments
         });
     }

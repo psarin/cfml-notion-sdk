@@ -1,7 +1,5 @@
 component DatabaseAPI {
 
-    this.baseUrl = Application.baseUrl;
-
     function init (required httpService){
         this.httpService = httpService;
 
@@ -12,7 +10,7 @@ component DatabaseAPI {
         return this.httpService(argumentCollection = {
             message: 'listing the databases',
             method: 'GET',
-            url: '#this.baseUrl#/databases'
+            url: '/databases'
         });
     }    
 
@@ -20,7 +18,7 @@ component DatabaseAPI {
         return this.httpService(argumentCollection = {
             message: 'getting the database',
             method: 'GET',
-            url: '#this.baseUrl#/databases/#database_id#'
+            url: '/databases/#database_id#'
         });
     }    
 
@@ -28,7 +26,7 @@ component DatabaseAPI {
         return this.httpService(argumentCollection = {
             message: 'querying the database',
             method: 'POST',
-            url: '#this.baseUrl#/databases/#database_id#/query',
+            url: '/databases/#database_id#/query',
             body: {page_size: 5}
         });
     }

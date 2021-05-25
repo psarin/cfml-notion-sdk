@@ -2,10 +2,12 @@ component NotionClient {
 
     public function init (
         required String auth,
-        String notionVersion = '2021-05-24',
+        String notionVersion = Application.notion.notionVersion,
+        String baseUrl = Application.notion.baseUrl
     ) {
         this.auth = arguments.auth;
         this.notionVersion = arguments.notionVersion;
+        this.baseUrl = arguments.baseUrl;
 
         this.databases = new lib.src.DatabaseAPI(httpService: this.httpService());
         this.pages = new lib.src.PageAPI(httpService: this.httpService());
@@ -34,7 +36,7 @@ component NotionClient {
                     break;
     
                     case "url":
-                        httpService.setURL(arguments.url);
+                        httpService.setURL(this.baseUrl & "/" & arguments.url);
                     break;
     
                     case "body":
