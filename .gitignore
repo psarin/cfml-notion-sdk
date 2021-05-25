@@ -1,0 +1,10 @@
+# Conventional directory for build outputs
+build/
+
+# Directory created by dartdoc
+doc/api/
+
+# Files from vscode
+.vscode/
+.DS_Store
+environment.var
