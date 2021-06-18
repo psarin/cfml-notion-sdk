@@ -21,15 +21,15 @@ component {
 							flushatrequestend = false,
 							//secondarycacheenabled = true, Cacheprovider = "EHCache",
 							logsql="false"};
-		this.triggerDataMember=true;
-		this.invokeImplicitAccessor=true;
 	*/
+	this.triggerDataMember=true;
+	this.invokeImplicitAccessor=true;
 
 	function onApplicationStart()
 	{
 		// Default Notion settings
 		Application.notion = {
-			notionVersion: "2021-05-24",
+			notionVersion: "2021-05-13",
 			baseUrl: "https://api.notion.com/v1"
 		}
 
