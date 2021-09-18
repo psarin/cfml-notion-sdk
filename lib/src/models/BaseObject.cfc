@@ -1,4 +1,4 @@
-component persistent="true" output="false" dynamicInsert="true" dynamicUpdate="true"
+component displayName="BaseObject" persistent="true" output="false" dynamicInsert="true" dynamicUpdate="true"
 {
 	/* properties */
 	property name="id" type="string" fieldtype="id";
@@ -16,6 +16,8 @@ component persistent="true" output="false" dynamicInsert="true" dynamicUpdate="t
 				}
                 if (key eq "value" and isStruct(newVal)){
                     this.setValue(newVal);
+                }else if (key eq "results" and isArray(newVal)){
+                    this.setResults(newVal);
                 }else if (isDate(newVal)){
                     variables[key] = newVal;
                 }else{
@@ -26,6 +28,7 @@ component persistent="true" output="false" dynamicInsert="true" dynamicUpdate="t
         
 		return this;
 	}
+    
     public function setValue(property_object){
 
         var value = null;
@@ -37,13 +40,13 @@ component persistent="true" output="false" dynamicInsert="true" dynamicUpdate="t
         if (isStruct(property_values)){
             value = createObject("component", "models.#property_type#").init(argumentCollection = property_values);
 
-        }else if (isArray(property_values) && !arrayIsEmpty(property_values)){
+        }else if (isArray(property_values)){
             value = property_values.map( (obj) => {
                 if (isStruct(obj)){
                     return createObject("component", "models.#property_type#").init(argumentCollection=obj);
                 }
             })     
-        }else if (!isStruct(property_values) && !isArray(property_values)){
+        }else if (!isArray(property_values) && !isStruct(property_values)){
             value = createObject("component", "models.#property_type#").init(argumentCollection = {
                 "#property_type#": property_values
             });
@@ -53,14 +56,32 @@ component persistent="true" output="false" dynamicInsert="true" dynamicUpdate="t
         return value;
     }
 
+    // Master getDisplayText
+    // Needs to account for all values of type array since arrays won't have getDisplayText
     public function getDisplayText(){
         var value = this.getValue();
-
+        
         if (isNull(value)){
+            if (!isNull(this.getText)){
+                return this.getText()?:"";
+            }else if (!isNull(this.getName)){
+                return this.getName()?:"";
+            }else if (!isNull(this.getString)){
+                return this.getString()?:"";
+            }
             return
         }
 
-        if ((this.getType() == "rich_text" || this.getType() == "files") && isArray(value) && !arrayIsEmpty(value)){
+        // if value object has a preferred display text, use that
+        if (!isNull(value.getDisplayText)){
+            return value.getDisplayText();
+        }
+
+        // otherwise, do generic processing here to determine best display text
+        if ((this.getType() == "rich_text" || this.getType() == "files") && isArray(value)){
+            if (arrayIsEmpty(value)){
+                return "";
+            }
             value = value[1];
             if (!isNull(value.getPlain_text)){
                 return value.getPlain_Text();
@@ -68,18 +89,17 @@ component persistent="true" output="false" dynamicInsert="true" dynamicUpdate="t
                 return value.getName();
             }
         }
-        else if (this.getType() == "url" && !isArray(value)){
-            return value.getURL();
-        }
         else if (this.getType()=="title" && !isNull(value) && isArray(value) && !arrayIsEmpty(value)){
             value = value[1];
             if (!isNull(value.getPlain_text)){
                 return value.getPlain_Text();
             }    
-        }else if (!isArray(value) && !isNull(value.getText)){
-            return value.getText();
-        }else if (!isArray(value) && !isNull(value.getName)){
-            return value.getName();
+        }else if (this.getType() == "people" && isArray(value)){
+            return arrayToList(value.map((obj) => obj.getName()).filter((obj) => !isNull(obj)), "; ");
+        }else if (this.getType() == "multi_select" && isArray(value)){
+            return arrayToList(value.map((obj) => obj.getName()).filter((obj) => !isNull(obj)), "; ");
+        }else if (this.getType() == "relation" && isArray(value)){
+            return arrayToList(value.map((obj) => obj.getDisplayText()).filter((obj) => !isNull(obj)), "; ");
         }
  
         return;

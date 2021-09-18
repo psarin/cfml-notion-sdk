@@ -33,12 +33,17 @@ component persistent="true" output="false" dynamicInsert="true" dynamicUpdate="t
         var value = [];
 
         for (var a=1; a <= arrayLen(results_object); a++){
-            var result = results_object[a];
-            var model = createObject("component", "models.#result.object#").init(argumentCollection = result);
-            arrayAppend (value, model);
+			try{
+				var result = results_object[a];
+				var model = createObject("component", "models.#result.object#").init(argumentCollection = result);
+				arrayAppend (value, model);	
+			}catch (e){
+				writeDump(var=e);
+			}
         }
 
         variables.results = value;
         return value;
-    }    
+    }
+
 }

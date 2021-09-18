@@ -4,29 +4,8 @@ component extends="BaseObject" persistent="true" output="false" dynamicInsert="t
 
 	property name="url" type="string";
 
-    
-
-	public function init(){
-
-        for (var key in arguments){
-            if (StructKeyExists(arguments, key) and key neq "datetimeinserted" and key neq "datetimemodified" and key neq "useridmodifying" and key neq "useridinserting"){
-				var newVal = arguments[key];
-
-				if (isArray(newVal)){
-					newVal = arrayToList(newVal);
-				}
-				if (not isStruct(newVal) and (newVal eq "''" or newVal eq '""' or newVal eq "" or IsNull(newVal))) {
-					newVal = null;
-				}
-                if (isDate(newVal)){
-                    variables[key] = newVal;
-                }else{
-                    variables[key] = newVal;
-                }
-            }
-        }
-
-		return this;
-	}
-
+    public function getDisplayText(){
+        var value = this.getUrl();
+		return !isNull(value)?"<a href='#value#'>#value#</a>":"";
+	}    
 }

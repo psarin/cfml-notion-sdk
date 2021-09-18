@@ -50,10 +50,16 @@ component persistent="true" output="false" dynamicInsert="true" dynamicUpdate="t
 
         var keys = structKeyArray(property_object);
         for (var key in keys){
-            var property = property_object[key];
-            var property_type = property.type;
-            property.name = key;
-            arrayAppend( value, createObject("component", "models.#property_type#").init(argumentCollection = property));
+            try{
+                var property = property_object[key];
+                var property_type = property.type;
+                property.name = key;
+                arrayAppend( value, createObject("component", "models.#property_type#").init(argumentCollection = property));    
+            }catch (e){
+                writeDump(var=e.message);
+                writeDump(property);
+                writeDump(property_type);
+            }
         }
 
         variables.properties = value;

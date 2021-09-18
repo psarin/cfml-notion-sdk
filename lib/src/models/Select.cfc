@@ -4,7 +4,7 @@ component extends="BaseObject" persistent="true" output="false" dynamicInsert="t
 
 	property name="id" type="string" fieldtype="id";
 
-	property name="name" type="string" default="blah";
+	property name="name" type="string" default="None";
 	property name="color" type="string";
 
 	property name="options" type="array";

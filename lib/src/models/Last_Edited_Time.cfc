@@ -1,15 +1,14 @@
 component extends="BaseObject" persistent="true" output="false" dynamicInsert="true" dynamicUpdate="true"
 {
 	/* properties */
-	property name="created_time" type="date";
-
+	property name="last_edited_time" type="date";
 
     public function getDisplayText(){
         var value = null;
-        if (!isNull(this.getCreated_Time())){
-            value = datetimeFormat(this.getCreated_Time())
+        if (!isNull(this.getLast_Edited_Time())){
+            value = datetimeFormat(this.getLast_Edited_Time())
         }
         return value
     }	
-	
+
 }
