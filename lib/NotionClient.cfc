@@ -11,9 +11,7 @@ component NotionClient {
 
         this.databases = new lib.src.DatabaseAPI(httpService: this.httpService());
         this.pages = new lib.src.PageAPI(httpService: this.httpService());
-        this.blocks = {
-            children: new lib.src.BlockAPI(httpService: this.httpService())
-        };
+        this.blocks = new lib.src.BlockAPI(httpService: this.httpService());
         this.users = new lib.src.UserAPI(httpService: this.httpService());
         this.search = new lib.src.SearchAPI(httpService: this.httpService());
 
@@ -26,7 +24,7 @@ component NotionClient {
         httpService.addParam(type = 'header', name = 'Content-Type', value = 'application/json');
         httpService.addParam(type = 'header', name = 'Accept', value = 'application/json');
         httpService.addParam(type = 'header', name = 'Authorization', value = 'Bearer #this.auth#');
-        httpService.addParam(type = 'header', name = 'NotionVersion', value = '#this.notionVersion#');
+        httpService.addParam(type = 'header', name = 'Notion-Version', value = '#this.notionVersion#');
         
         return function (){
             for (var key in arguments){
