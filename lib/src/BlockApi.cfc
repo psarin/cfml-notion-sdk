@@ -6,7 +6,7 @@ component BlockAPI {
         return this;
     }
 
-    public function list(String block_id) {
+    public function retrieve(String block_id) {
         return this.httpService(argumentCollection = {
             message: 'getting the block',
             method: 'GET',
