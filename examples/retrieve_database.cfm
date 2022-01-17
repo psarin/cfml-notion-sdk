@@ -3,6 +3,9 @@
 
         var NOTION_TOKEN = Application.notion.auth;
         var notion = new lib.NotionClient (auth: NOTION_TOKEN);
+        var useDatabaseKey = "projects";
+        var DATABASE_ID = Application.notion["databases"][useDatabaseKey]?.DATABASE_ID;
+
         var not_renderable_text = "not renderable";
 
         writeOutput("<h1>Example of Database Retrieval</h1>");
@@ -10,12 +13,11 @@
 
         writeOutput("<p>The app queries a database's properties and content, displaying the values of the database's properties for each row.</p>");
 
-        var DATABASE_ID = Application.notion["DATABASE_ID"];
         // Retrieve database properties / structure from Notion and convert into our own database model
         var database_info = notion.databases.retrieve(argumentCollection={database_id: DATABASE_ID});
         var database_model = new models.Database().init(argumentCollection = database_info);
 
-        // writedump(var = database_model);
+        // writeDump(var = database_model);
         // abort;
 
         // Query the database for all rows (pages) contained in the database, returned as a list, and convert into our own list model

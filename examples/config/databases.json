@@ -1,0 +1,10 @@
+{
+    "default": "projects",
+    "academic_refs": {
+        "DATABASE_ID": "database_id_for_academic_refs_db"
+    },
+    "projects": {
+        "DATABASE_ID": "database_id_for_projects_db",
+        "properties": ["Date Created","Slug","Title","Principal Investigator","Investigators","Assigned Project","Study Status"]
+    }
+}
