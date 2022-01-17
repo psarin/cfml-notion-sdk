@@ -39,7 +39,7 @@ component {
 	{
 		// If settings.json file exists, read Notion settings from file.
 		try{
-			var settings = deserializeJson(fileRead('./settings.json'));
+			var settings = deserializeJson(fileRead('./config/settings.json'));
 			if (!isNull(settings)){
 				for (var key in settings){
 					Application.notion[key] = settings[key];
@@ -47,8 +47,19 @@ component {
 			}
 		}catch (any e){
 			if (!findnocase('does not exist', e.Message)){
-				writeOutput("<div style='background-color:red; color: white; width:90%; padding:10px; top:0px; left:0px;'>Settings.json file exists but contains errors. Default settings to be used. <BR/><BR/>#e.Message#<BR/></div>");
+				writeOutput("<div style='background-color:red; color: white; width:90%; padding:10px; top:0px; left:0px;'>settings.json file exists but contains errors. Default settings to be used. <BR/><BR/>#e.Message#<BR/></div>");
 			}
 		}
+
+		// If databases.json file exists, read Notion settings from file.
+		try{
+			var databases = deserializeJson(fileRead('./config/databases.json'));
+			Application.notion["databases"] = databases;
+
+		}catch (any e){
+			if (!findnocase('does not exist', e.Message)){
+				writeOutput("<div style='background-color:red; color: white; width:90%; padding:10px; top:0px; left:0px;'>databases.json file exists but contains errors. Default settings to be used. <BR/><BR/>#e.Message#<BR/></div>");
+			}
+		}	
 	}
 }
