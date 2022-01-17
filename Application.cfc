@@ -1,6 +1,6 @@
 component {
 
-	this.name="notion_sdk_cfml";
+	this.name="cfml_notion_sdk";
 	
 	this.clientmanagement="true";
 	this.sessionmanagement="true";

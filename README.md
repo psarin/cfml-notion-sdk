@@ -10,7 +10,7 @@
 This library is a **WIP** inspired by the official [JavaScript SDK](https://github.com/makenotion/notion-sdk-js) and the [Dart implementation](https://github.com/jpinz/notion_dart_api). We adhere to the API usage patterns of the JavaScript SDK wherever possible. The instructions below have been copied & modified from the JavaScript SDK [README.md](https://github.com/makenotion/notion-sdk-js/blob/main/README.md).
 
 > This library is in beta, please report on
-> [GitHub Issues](https://github.com/psarin/notion_sdk_cfml/issues) any issues
+> [GitHub Issues](https://github.com/psarin/cfml-notion-sdk/issues) any issues
 > you come across.
 
 <!-- markdownlint-disable -->
@@ -107,6 +107,6 @@ This package supports the following minimum versions:
 Testing has been done on the [Lucee CFML engine](https://lucee.org).
 ## Getting help
 
-If you have a question about the library, or are having difficulty using it, chat with the community in [Lucee Dev Forms](https://dev.lucee.org) or [GitHub Discussions](https://github.com/psarin/notion-sdk-cfml/discussions).
+If you have a question about the library, or are having difficulty using it, chat with the community in [Lucee Dev Forms](https://dev.lucee.org) or [GitHub Discussions](https://github.com/psarin/cfml-notion-sdk/discussions).
 
 If you're experiencing issues with the Notion API, such as a service interruption or a potential bug in the platform, reach out to [Notion help](https://www.notion.com/Help-Support-e040febf70a94950b8620e6f00005004?target=intercom).
