@@ -107,6 +107,6 @@ This package supports the following minimum versions:
 Testing has been done on the [Lucee CFML engine](https://lucee.org).
 ## Getting help
 
-If you have a question about the library, or are having difficulty using it, chat with the community in [Lucee Dev Forms](https://dev.lucee.org) or [GitHub Discussions](https://github.com/psarin/cfml-notion-sdk/discussions).
+If you have a question about the library, or are having difficulty using it, chat with the community in [Lucee Dev Forums](https://dev.lucee.org).
 
 If you're experiencing issues with the Notion API, such as a service interruption or a potential bug in the platform, reach out to [Notion help](https://www.notion.com/Help-Support-e040febf70a94950b8620e6f00005004?target=intercom).
