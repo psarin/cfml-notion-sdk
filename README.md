@@ -7,7 +7,7 @@
 </div>
 <!-- markdownlint-enable -->
 
-This library is a **WIP** inspired by the official [JavaScript SDK](https://github.com/makenotion/notion-sdk-js) and the [dart implementation](https://github.com/jpinz/notion_dart_api). We adhere to the API usage patterns of the JavaScript SDK wherever possible. The instructions below have been copied & modified from the JavaScript SDK [README.md](https://github.com/makenotion/notion-sdk-js/blob/main/README.md).
+This library is a **WIP** inspired by the official [JavaScript SDK](https://github.com/makenotion/notion-sdk-js) and the [Dart implementation](https://github.com/jpinz/notion_dart_api). We adhere to the API usage patterns of the JavaScript SDK wherever possible. The instructions below have been copied & modified from the JavaScript SDK [README.md](https://github.com/makenotion/notion-sdk-js/blob/main/README.md).
 
 > This library is in beta, please report on
 > [GitHub Issues](https://github.com/psarin/notion_sdk_cfml/issues) any issues
@@ -22,8 +22,11 @@ This library is a **WIP** inspired by the official [JavaScript SDK](https://gith
 
 Import and initialize a client using an **integration token** or an OAuth **access token**. The token can be imported from an Application / Session variable, the database, or an [environment variable](https://docs.lucee.org/guides/Various/system-properties.html) and best practice states it should **not** be hardcoded into the source code.
 
+This library can utilize two config files that you can place in the `config/` directory. The first is `settings.json` to hold your Notion API settings and authorization, and the second is `databases.json` to hold mappings to databases & pages you may want to access in  your code. See the `examples/config/` folder for samples.
+
 ```js
 // Best to import token from Application variable, database, or environment variable
+// /examples/simple.cfm folder for examples how to use via Application variable.
 var NOTION_TOKEN = 'secret_token'; 
 
 // Initializing a client
@@ -37,15 +40,11 @@ Make a request to any Notion API endpoint.
 ```js
 // Request a list of users in workspace
 var listUsersResponse = notion.users.list();
+// Look at response
+writeDump(var = listUsersResponse);
 ```
 
 Each method returns the response.
-
-```js
-writeDump(var = listUsersResponse);
-
-// Output
-```
 
 <pre>
 {
@@ -83,36 +82,12 @@ const myPage = notion.databases.query({
 
 If the API returns an unsuccessful response, the returned response returns a simple error and the HTTP error response from server.
 
-TODO / NOT IMPLEMENTED:
+TODO / NOT IMPLEMENTED: This library needs to better deal with error responses.
+
 <pre style="font-size:10px;"> 
 The error contains properties from the response, and the most helpful is `code`. You can compare `code` to the values in the `APIErrorCode` object to avoid misspelling error codes.
 
-```js
-const { Client, APIErrorCode } = require("@notionhq/client")
-
-try {
-  const myPage = await notion.databases.query({
-    database_id: databaseId,
-    filter: {
-      property: "Landmark",
-      text: {
-        contains: "Bridge",
-      },
-    },
-  })
-} catch (error) {
-  if (error.code === APIErrorCode.ObjectNotFound) {
-    //
-    // For example: handle by asking the user to select a different database
-    //
-  } else {
-    // Other error handling code
-    console.error(error)
-  }
-}
-```
 </pre>
-
 
 ### Client options
 
@@ -132,6 +107,6 @@ This package supports the following minimum versions:
 Testing has been done on the [Lucee CFML engine](https://lucee.org).
 ## Getting help
 
-If you have a question about the library, or are having difficulty using it, chat with the community in [GitHub Discussions](https://github.com/psarin/notion-sdk-cfml/discussions).
+If you have a question about the library, or are having difficulty using it, chat with the community in [Lucee Dev Forms](https://dev.lucee.org) or [GitHub Discussions](https://github.com/psarin/notion-sdk-cfml/discussions).
 
 If you're experiencing issues with the Notion API, such as a service interruption or a potential bug in the platform, reach out to [Notion help](https://www.notion.com/Help-Support-e040febf70a94950b8620e6f00005004?target=intercom).
