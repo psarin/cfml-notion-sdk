@@ -6,11 +6,11 @@ component BlockAPI {
         return this;
     }
 
-    public function retrieve(String block_id) {
+    public function retrieve(String block_id, Boolean children=true) {
         return this.httpService(argumentCollection = {
             message: 'getting the block',
             method: 'GET',
-            url: '/blocks/#block_id#/children'
+            url: '/blocks/#block_id#/' & (children?'children':'')
         });
     }
 

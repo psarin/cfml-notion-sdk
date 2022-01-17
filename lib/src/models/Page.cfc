@@ -9,6 +9,7 @@ component persistent="true" output="false" dynamicInsert="true" dynamicUpdate="t
     // property name="title" type="array" fieldtype="one-to-many" cfc="Title";
     property name="parent" type="struct" fieldtype="one-to-one" cfc="Parent";
     property name="properties" type="array" fieldtype="one-to-many";
+    property name="properties_key_name" type="string" hint="Name of key / primary field for properties";
 
 	public function init(){
         for (var key in arguments){
@@ -42,11 +43,9 @@ component persistent="true" output="false" dynamicInsert="true" dynamicUpdate="t
     public function setProperties(property_object){
 
         var value = [];
-
         var keys = structKeyArray(property_object);
         for (var property_name in keys){
             var property = property_object[property_name];
-
             var property_id = property.id;
             var property_type = property.type;
 
@@ -57,8 +56,10 @@ component persistent="true" output="false" dynamicInsert="true" dynamicUpdate="t
                 value = property
             });
 
-
             arrayAppend( value, model);
+            if (findNoCase('(key)', property_name)){
+                this.setProperties_key_name(property_name);
+            }
         }
 
         variables.properties = value;

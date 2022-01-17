@@ -36,12 +36,18 @@ component extends="BaseObject" persistent="true" output="false" dynamicInsert="t
 
         var value = [];
 
-		writedump(var=block);
-		writedump(var=block_type);
+		try{
+			var model = createObject("component", "models.#block_type#").init(argumentCollection = block);
+			model.setType(block_type);
+			variables.value = model;	
+		}catch (e){
+			writeOutput("<HR/><h1>Error in Block.cfc</h1>");
+			writeOutput("<p>#e.message#</p>");
+			writedump(var=block_type);	
+			writedump(var=block);
+			writeOutput("<HR/>");                
+		}
 
-		var model = createObject("component", "models.#block_type#").init(argumentCollection = block);
-		model.setType(block_type);
-		variables.value = model;
 
 		// if (!isNull(block.text)){
 		// 	for (var notion_object in block.text){

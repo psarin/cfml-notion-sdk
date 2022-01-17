@@ -9,6 +9,7 @@ component persistent="true" output="false" dynamicInsert="true" dynamicUpdate="t
     property name="properties" type="array" fieldtype="one-to-many";
 
 	public function init(){
+        // writeDump(var=arguments)?
         for (var key in arguments){
             if (StructKeyExists(arguments, key) and key neq "datetimeinserted" and key neq "datetimemodified" and key neq "useridmodifying" and key neq "useridinserting"){
 				var newVal = arguments[key];
@@ -53,12 +54,23 @@ component persistent="true" output="false" dynamicInsert="true" dynamicUpdate="t
             try{
                 var property = property_object[key];
                 var property_type = property.type;
+
+                for (var subkey in property[property_type]){
+                    property[subkey] = property[property_type][subkey];
+                }
                 property.name = key;
-                arrayAppend( value, createObject("component", "models.#property_type#").init(argumentCollection = property));    
+                arrayAppend( value, createObject("component", "models.#property_type#").init(argumentCollection = property));
+                if (property_type eq "select"){
+                    // writeoutput("MASDE I THERE<BR/>");
+                    // writeDump(var=property)
+                    // writeDump(var=createObject("component", "models.#property_type#").init(argumentCollection = property));
+                    // abort;
+                }
             }catch (e){
-                writeDump(var=e.message);
-                writeDump(property);
-                writeDump(property_type);
+                arrayAppend( value, createObject("component", "models.Unsupported").init(argumentCollection = property));   
+                // writeDump(var=e.message);
+                // writeDump(property);
+                // writeDump(property_type);
             }
         }
 

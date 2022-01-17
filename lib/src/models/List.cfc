@@ -38,7 +38,10 @@ component persistent="true" output="false" dynamicInsert="true" dynamicUpdate="t
 				var model = createObject("component", "models.#result.object#").init(argumentCollection = result);
 				arrayAppend (value, model);	
 			}catch (e){
+                writeOutput("<HR/><h1>Error in List.cfc</h1>");
 				writeDump(var=e);
+                writedump(var=result);
+                writeOutput("<HR/>");                
 			}
         }
 
