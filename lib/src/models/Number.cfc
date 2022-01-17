@@ -7,5 +7,5 @@ component displayName="Number" extends="BaseObject" persistent="true" output="fa
     public function getDisplayText(){
         var value = this.getNumber();
 		return value;
-	}    
+	}
 }
