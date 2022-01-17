@@ -111,15 +111,15 @@ component displayName="BaseObject" persistent="true" output="false" dynamicInser
             case 'rich_text':
             case 'files':
                 if(isArray(value)){
-                    if (arrayIsEmpty(value)){
-                        displayText = "";
+                    displayText = "";
+                    if (!arrayIsEmpty(value)){
+                        value = value[1];
+                        if (!isNull(value.getPlain_text)){
+                            displayText = value.getPlain_Text();
+                        }else if (!isNull(value.getName)){
+                            displayText = value.getName();
+                        }
                     }
-                    value = value[1];
-                    if (!isNull(value.getPlain_text)){
-                        displayText = value.getPlain_Text();
-                    }else if (!isNull(value.getName)){
-                        displayText = value.getName();
-                    }    
                 }
                 break;
 
