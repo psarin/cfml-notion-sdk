@@ -32,4 +32,5 @@ component extends="BaseObject" persistent="true" output="false" dynamicInsert="t
         
 		return this;
 	}
+
 }
