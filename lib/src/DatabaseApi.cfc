@@ -1,7 +1,7 @@
 component DatabaseAPI {
 
     function init (required httpService){
-        this.httpService = httpService;
+        this.httpService = arguments.httpService;
 
         return this;
     }
@@ -18,16 +18,19 @@ component DatabaseAPI {
         return this.httpService(argumentCollection = {
             message: 'getting the database',
             method: 'GET',
-            url: '/databases/#database_id#'
+            url: '/databases/#arguments.database_id#'
         });
     }    
 
-    public function query(String database_id) {
+    public function query(String database_id, numeric page_size = 10, String start_cursor, Array sorts = [], Struct filter) {
+
         return this.httpService(argumentCollection = {
             message: 'querying the database',
             method: 'POST',
-            url: '/databases/#database_id#/query',
-            body: {page_size: 5}
+            url: '/databases/#arguments.database_id#/query',
+            body: {
+                page_size: arguments.page_size
+            }
         });
     }
 }
