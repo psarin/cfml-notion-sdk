@@ -8,4 +8,17 @@ component extends="BaseObject" persistent="true" output="false" dynamicInsert="t
 	property name="color" type="string";
 
 	property name="options" type="array";
+
+	public function getDisplayHTML(Struct parent){
+		var type = parent?.type;
+		var classes = this.getColor()?:'';
+		var displayText = this.getDisplayText();
+
+		if (!isNull(type)){
+			classes = 'notion-' & type & ' ' & classes;
+		}
+
+		return '<div class="#classes#">#displayText#</div>';
+	}
+
 }

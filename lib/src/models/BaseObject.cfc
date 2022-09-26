@@ -154,4 +154,38 @@ component displayName="BaseObject" persistent="true" output="false" dynamicInser
  
         return displayText;
     }
+
+    public function getDisplayHTML(){
+        var type = this.getType();
+        var value = this.getValue();
+        var displayHTML;
+        
+        // If value is null, means we have no more children to examine
+        if (isNull(value)){
+            if (!isNull(this.getText)){
+                displayHTML = (this.getText()?:"");
+            }else if (!isNull(this.getName)){
+                if (!isNull(type)){
+                    displayHTML = ((this.getName()?:"") & " is unsupported type " & type);
+                }else{
+                    displayHTML = this.getName();
+                }
+            }else if (!isNull(this.getString)){
+                displayHTML = this.getString()?:"";
+            }
+
+            if (isNull(displayHTML) or not compareNoCase(displayHTML, '')){
+                return this.getDisplayText();
+            }
+        
+            return '<span>#displayHTML#</span>';
+        }
+
+        // if value object has a preferred display text, use that
+        if (!isNull(value.getDisplayHTML)){
+            return value.getDisplayHTML(this);
+        }
+
+        return '<span>#displayHTML#</span>';
+    }
 }
