@@ -29,7 +29,7 @@ component {
 	{
 		// Default Notion settings
 		Application.notion = {
-			notionVersion: "2021-05-13",
+			notionVersion: "2022-06-28",
 			baseUrl: "https://api.notion.com/v1"
 		}
 
