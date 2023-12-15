@@ -2,18 +2,18 @@ component NotionClient {
 
     public function init (
         required String auth,
-        String notionVersion = Application.notion.notionVersion,
-        String baseUrl = Application.notion.baseUrl
+        String notionVersion = Application?.notion?.notionVersion,
+        String baseUrl = Application?.notion?.baseUrl
     ) {
         this.auth = arguments.auth;
         this.notionVersion = arguments.notionVersion;
         this.baseUrl = arguments.baseUrl;
 
-        this.databases = new lib.src.DatabaseAPI(httpService: this.httpService());
-        this.pages = new lib.src.PageAPI(httpService: this.httpService());
-        this.blocks = new lib.src.BlockAPI(httpService: this.httpService());
-        this.users = new lib.src.UserAPI(httpService: this.httpService());
-        this.search = new lib.src.SearchAPI(httpService: this.httpService());
+        this.databases = new src.DatabaseAPI(httpService: this.httpService());
+        this.pages = new src.PageAPI(httpService: this.httpService());
+        this.blocks = new src.BlockAPI(httpService: this.httpService());
+        this.users = new src.UserAPI(httpService: this.httpService());
+        this.search = new src.SearchAPI(httpService: this.httpService());
 
         return this;
     }
@@ -25,22 +25,34 @@ component NotionClient {
         httpService.addParam(type = 'header', name = 'Accept', value = 'application/json');
         httpService.addParam(type = 'header', name = 'Authorization', value = 'Bearer #this.auth#');
         httpService.addParam(type = 'header', name = 'Notion-Version', value = '#this.notionVersion#');
-        
+
         return function (){
             for (var key in arguments){
                 switch(key) {
                     case "method":
                         httpService.setMethod(arguments.method);
                     break;
-    
-                    case "url":
-                        httpService.setURL(this.baseUrl & "/" & arguments.url);
-                    break;
-    
+
                     case "body":
                         httpService.addParam(type="body", value = "#serializeJson(arguments.body)#");
+					break;
+
+                    case "url":
+						var _url = this.baseUrl & "/" & arguments.url;
+
+						if (!isNull(arguments.filter_properties)) {
+							if (arguments.filter_properties?.len() > 0) {
+								_url = _url & "?";
+							}
+
+							for (var propertyName in arguments.filter_properties) {
+								_url = _url & "filter_properties=#propertyName#&";
+							}
+						}
+                        httpService.setURL(_url);
                     break;
-                }    
+
+                }
             }
 
             var response = httpService.send().getPrefix();
@@ -49,10 +61,10 @@ component NotionClient {
                 var message = arguments.message?:'Unknown';
                 writeDump('error #message#');
                 writedump(var=response);
-            }else{    
+            }else{
                 return deserializeJSON(response.filecontent);
             }
-    
+
         };
     }
 
