@@ -1,7 +1,7 @@
 component {
 
 	this.name="cfml_notion_sdk";
-	
+
 	this.clientmanagement="true";
 	this.sessionmanagement="true";
 	this.setclientcookies="true";
@@ -43,7 +43,7 @@ component {
 			if (!isNull(settings)){
 				for (var key in settings){
 					Application.notion[key] = settings[key];
-				}	
+				}
 			}
 		}catch (any e){
 			if (!findnocase('does not exist', e.Message)){
@@ -60,6 +60,6 @@ component {
 			if (!findnocase('does not exist', e.Message)){
 				writeOutput("<div style='background-color:red; color: white; width:90%; padding:10px; top:0px; left:0px;'>databases.json file exists but contains errors. Default settings to be used. <BR/><BR/>#e.Message#<BR/></div>");
 			}
-		}	
+		}
 	}
 }
